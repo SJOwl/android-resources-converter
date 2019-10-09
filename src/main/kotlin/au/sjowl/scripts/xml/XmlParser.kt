@@ -69,10 +69,10 @@ class XmlParser {
             when (entries[0]) {
                 STRING -> {
                     for (j in offset until entries.size) {
-                        val name = entries[1]
+                        val name = entries[1].decapitalize()
                         resources[j - offset].strings[name] = StringNode(
                             name = name,
-                            value = entries[j],
+                            value = correctString(entries[j]),
                             translatable = entries[2].toBoolean()
                         )
                     }
@@ -95,7 +95,7 @@ class XmlParser {
                         for (j in offset until entriesPlurals.size) {
                             resources[j - offset].plurals[pluralName]!!.items.add(PluralsItem(
                                 quantity = qiantity,
-                                value = entriesPlurals[j]
+                                value = correctString(entriesPlurals[j])
                             ))
                         }
                         i++
@@ -117,7 +117,7 @@ class XmlParser {
 
                         for (j in offset until entriesStrings.size) {
                             resources[j - offset].arrays[arrayName]!!.items.add(StringArrayItem(
-                                value = entriesStrings[j]
+                                value = correctString(entriesStrings[j])
                             ))
                         }
                         i++
@@ -132,6 +132,11 @@ class XmlParser {
 
         return resources
     }
+
+    private fun correctString(s: String) = s
+        .replace("<! [CDATA [", "<![CDATA[")
+        .replace("\\ \'", "\\\'")
+        .replace(" ...", "…")
 
     private fun <T> parse(
         xmlDoc: Document, tag: String,

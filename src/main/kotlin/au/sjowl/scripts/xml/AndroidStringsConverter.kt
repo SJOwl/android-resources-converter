@@ -7,7 +7,7 @@ class AndroidStringsConverter(
     private val pathResources: String,
     pathOutput: String
 ) {
-    private val pathCsv = "$pathOutput/strings.csv"
+    private val pathCsv = "$pathOutput/strings.tsv"
     private val stringsFileName = "strings.xml"
 
     fun convertToCsv() {
@@ -33,6 +33,7 @@ class AndroidStringsConverter(
                 val folder = File(pathResources, stringResource.name).apply {
                     mkdirs()
                 }
+                println("folder = ${folder.toPath()}")
                 File(folder, stringsFileName).writeText(stringResource.toString())
                 println(stringResource.toString())
             }

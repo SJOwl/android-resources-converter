@@ -9,22 +9,30 @@ Example:
 cr csv /Users/sj/AndroidApps/SubtitlesPlayer/widgets/src/main/res /Users/sj/Downloads
 cr xml /Users/sj/AndroidApps/SubtitlesPlayer/widgets/src/main/res /Users/sj/Downloads
         """.trimIndent())
-        when (args[0]) {
+        val convertTo = args[0]
+        val pathResources = args[1]
+        val pathOutput = args[2]
+
+        //        val convertTo = "xml"
+        //        val pathResources = "/Users/sj/AndroidApps/SubtitlesPlayer/widgets/src/main/res"
+        //        val pathOutput = "/Users/sj/Downloads"
+
+        val converter = AndroidStringsConverter(
+            pathResources = pathResources,
+            pathOutput = pathOutput
+        )
+        when (convertTo) {
             "csv" -> {
-                AndroidStringsConverter(
-                    pathResources = args[1],
-                    pathOutput = args[2]
-                ).convertToCsv()
-                println("files converted to csv at ${args[2]}/strings.xml")
+                converter.convertToCsv()
+                println("files converted to csv at ${pathOutput}/strings.tsv")
             }
             "xml" -> {
-                AndroidStringsConverter(
-                    pathResources = args[1],
-                    pathOutput = args[2]
-                ).convertToXml()
-                println("files converted to xml at ${args[1]}")
+                converter.convertToXml()
+                println("files converted to xml at ${pathResources}")
             }
         }
+
+        println("\n\nSuccess!")
     } catch (e: Exception) {
         println("\n\nError:")
         println(e)

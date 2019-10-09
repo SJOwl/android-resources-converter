@@ -21,7 +21,7 @@ class ObjectsMerger {
 
         resources[MAIN_VALUES]!!.strings.values
             .toList()
-            .sortedBy { it.name }
+            .sortedBy { it.value }
             .sortedBy { it.translatable }
             .forEach { stringNode: StringNode ->
                 sb.append(STRING)
