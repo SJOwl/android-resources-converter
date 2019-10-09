@@ -1,12 +1,12 @@
-Android Strings XML <-> CSV converter
+# Android Strings XML <-> CSV converter
 
 Project is made at IntelliJ 2019.
 
-**Features**
-Merges all string.xml files into one csv file.
+## Features
+Merges all string.xml files into one csv file.<br>
 Assumed that file is edited, exported to csv, then converted back to language-specific files at Android project resources.
 
-**Usage**
+## Usage
 To create jar, launch
 ```sh ./_make.sh```
 
