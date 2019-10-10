@@ -134,15 +134,6 @@ class XmlParser {
     }
 
     private fun correctString(s: String) = s
-        .replace("<! [CDATA [", "<![CDATA[")
-        .replace("\\ \'", "\\\'")
-        .replace(" ...", "…")
-        .replace(" \\\'", "\\\'")
-        .replace("> <", "><")
-        .replace(" </ ", "</")
-        .replace("> ", ">")
-        .replace("</ ", "</")
-        .replace("# ", "#")
 
     private fun <T> parse(
         xmlDoc: Document, tag: String,

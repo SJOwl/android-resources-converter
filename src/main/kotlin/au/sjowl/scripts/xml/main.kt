@@ -1,5 +1,7 @@
 package au.sjowl.scripts.xml
 
+import au.sjowl.scripts.xml.elements.OUTPUT_NAME
+
 fun main(args: Array<String>) {
     try {
         println("""
@@ -13,15 +15,14 @@ cr xml /Users/sj/AndroidApps/SubtitlesPlayer/widgets/src/main/res /Users/sj/Down
         val pathResources = args[1]
         val pathOutput = args[2]
         convert(convertTo, pathResources, pathOutput)
-
         /*
-                val convertTo = "xml"
                 val pathResources = "/Users/sj/AndroidApps/SubtitlesPlayer/widgets/src/main/res"
                 val pathOutput = "/Users/sj/Downloads"
                 convert("csv", pathResources, pathOutput)
                 convert("xml", pathResources, pathOutput)
-                */
+            */
     } catch (e: Exception) {
+        e.printStackTrace()
         println("\n\nError:")
         println(e)
     }
@@ -35,7 +36,7 @@ private fun convert(convertTo: String, pathResources: String, pathOutput: String
     when (convertTo) {
         "csv" -> {
             converter.convertToCsv()
-            println("files converted to csv at ${pathOutput}/strings.tsv")
+            println("files converted to csv at ${pathOutput}/$OUTPUT_NAME")
         }
         "xml" -> {
             converter.convertToXml()

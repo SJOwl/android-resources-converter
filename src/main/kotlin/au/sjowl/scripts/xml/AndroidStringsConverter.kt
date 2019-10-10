@@ -1,5 +1,6 @@
 package au.sjowl.scripts.xml
 
+import au.sjowl.scripts.xml.elements.OUTPUT_NAME
 import au.sjowl.scripts.xml.elements.StringResource
 import java.io.File
 
@@ -7,7 +8,7 @@ class AndroidStringsConverter(
     private val pathResources: String,
     pathOutput: String
 ) {
-    private val pathCsv = "$pathOutput/strings.tsv"
+    private val pathCsv = "$pathOutput/$OUTPUT_NAME"
     private val stringsFileName = "strings.xml"
 
     fun convertToCsv() {
@@ -33,9 +34,8 @@ class AndroidStringsConverter(
                 val folder = File(pathResources, stringResource.name).apply {
                     mkdirs()
                 }
-                println("folder = ${folder.toPath()}")
                 File(folder, stringsFileName).writeText(stringResource.toString())
-                println(stringResource.toString())
+                stringResource.printCDATA()
             }
     }
 

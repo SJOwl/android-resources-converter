@@ -10,20 +10,59 @@ class StringResource(
         val sb = StringBuilder()
         sb.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<resources>\n")
 
-        val translatable = strings.values.filter { !it.translatable }.sortedBy { it.name }
+        val translatable = strings.values
+            .filter { !it.translatable }
+            .sortedBy { it.name }
+
         if (name == MAIN_VALUES) {
-            sb.append(translatable.joinToString("\n") { "\t$it" })
+            sb.append("\t<!-- Non-translatable -->\n")
+            sb.append(translatable
+                .joinToString("\n") { "\t$it" })
             sb.append("\n")
             sb.append("\n")
         }
 
-        sb.append(strings.values.filter { it.translatable }.sortedBy { it.name }.sortedBy { it.translatable }.joinToString("\n") { "\t$it" })
-        sb.append("\n\n")
-        sb.append(plurals.values.sortedBy { it.name }.joinToString("\n") { "\t$it" })
-        sb.append("\n")
-        sb.append(arrays.values.sortedBy { it.name }.joinToString("\n") { "\t$it" })
+        sb.append("\t<!-- Translatable -->\n")
+        sb.append(strings.values
+            .filter { it.translatable }
+            .sortedBy { it.name }
+            .sortedByDescending { it.value.contains("CDATA", ignoreCase = false) }
+            .joinToString("\n") { "\t$it" })
+
+        if (plurals.isNotEmpty()) {
+            sb.append("\n\n\t<!-- Plurals -->\n")
+            sb.append(plurals.values
+                .sortedBy { it.name }
+                .joinToString("\n") { "\t$it" })
+        }
+
+        if (arrays.isNotEmpty()) {
+            sb.append("\n\t<!-- Arrays -->\n")
+            sb.append(arrays.values
+                .sortedBy { it.name }
+                .joinToString("\n") { "\t$it" })
+        }
+
         sb.append("\n")
         sb.append("</resources>")
         return sb.toString()
+    }
+
+    fun printCDATA() {
+        val cdatas = strings.values
+            .filter { it.translatable }
+            .filter { it.value.contains("CDATA", ignoreCase = false) }
+            .sortedBy { it.name }
+
+        println(name)
+
+        cdatas.forEach {
+            println(it.value
+                .replace("<![CDATA[", "")
+                .replace("]]>", "<br>")
+            )
+        }
+
+        println("\n")
     }
 }
