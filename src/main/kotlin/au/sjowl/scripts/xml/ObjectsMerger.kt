@@ -23,6 +23,13 @@ class ObjectsMerger {
             .toList()
             .sortedBy { it.value }
             .sortedBy { it.translatable }
+            .sortedBy { stringNode ->
+                var res = true
+                resourceNames.forEach { name ->
+                    res = res && resources[name]!!.strings[stringNode.name]?.value != null
+                }
+                res
+            }
             .forEach { stringNode: StringNode ->
                 sb.append(STRING)
                 sb.appendDelimeter()
