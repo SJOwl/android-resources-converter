@@ -12,7 +12,7 @@ cr csv /Users/sj/AndroidApps/suby/widgets/src/main/res /Users/sj/Downloads
 cr xml /Users/sj/AndroidApps/suby/widgets/src/main/res /Users/sj/Downloads
         """.trimIndent())
 
-        val debug = false
+        val debug = true
         if (debug) {
             val pathResources = "/Users/sj/AndroidApps/suby/widgets/src/main/res"
             val pathOutput = "/Users/sj/Downloads"

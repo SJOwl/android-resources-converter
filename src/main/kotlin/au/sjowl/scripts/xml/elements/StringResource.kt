@@ -57,21 +57,25 @@ class StringResource(
         return sb.toString()
     }
 
-    fun printCDATA() {
+    fun getCDATA(): String {
+        val sb = StringBuilder()
         val cdatas = strings.values
             .filter { it.translatable }
             .filter { it.value.contains("CDATA", ignoreCase = false) }
             .sortedBy { it.name }
 
-        println(name)
+        sb.append(name)
+        sb.append("\n")
 
         cdatas.forEach {
-            println(it.value
+            sb.append(it.value
                 .replace("<![CDATA[", "")
                 .replace("]]>", "<br>")
             )
+            sb.append("\n")
         }
 
-        println("\n")
+        sb.append("\n")
+        return sb.toString()
     }
 }

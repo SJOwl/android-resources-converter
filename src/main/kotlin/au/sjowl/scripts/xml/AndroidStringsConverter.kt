@@ -10,14 +10,22 @@ class AndroidStringsConverter(
 ) {
     private val pathCsv = "$pathOutput/$OUTPUT_NAME"
     private val stringsFileName = "strings.xml"
+    private val htmlFileName = "$pathOutput/strings.html"
 
     fun convertToCsv() {
         val parser = XmlParser()
         val resourcesMap = mutableMapOf<String, StringResource>()
+
+        val htmlFile = File(htmlFileName)
+        htmlFile.delete()
+        htmlFile.createNewFile()
+
         File(pathResources).children()
             .filter { file: File -> file.name == stringsFileName }
             .map {
-                parser.parseToCsv(it)
+                val stringResource = parser.parseToCsv(it)
+                htmlFile.appendText(stringResource.getCDATA())
+                stringResource
             }.forEach { stringResource: StringResource ->
                 resourcesMap[stringResource.name] = stringResource
             }
@@ -35,7 +43,6 @@ class AndroidStringsConverter(
                     mkdirs()
                 }
                 File(folder, stringsFileName).writeText(stringResource.toString())
-                stringResource.printCDATA()
             }
     }
 
