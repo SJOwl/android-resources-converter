@@ -8,19 +8,22 @@ fun main(args: Array<String>) {
 Supported arguments are: xml and csv
 first argument - resources foulder, second - output folder
 Example:
-cr csv /Users/sj/AndroidApps/SubtitlesPlayer/widgets/src/main/res /Users/sj/Downloads
-cr xml /Users/sj/AndroidApps/SubtitlesPlayer/widgets/src/main/res /Users/sj/Downloads
+cr csv /Users/sj/AndroidApps/suby/widgets/src/main/res /Users/sj/Downloads
+cr xml /Users/sj/AndroidApps/suby/widgets/src/main/res /Users/sj/Downloads
         """.trimIndent())
-        val convertTo = args[0]
-        val pathResources = args[1]
-        val pathOutput = args[2]
-        convert(convertTo, pathResources, pathOutput)
-        /*
-                val pathResources = "/Users/sj/AndroidApps/SubtitlesPlayer/widgets/src/main/res"
-                val pathOutput = "/Users/sj/Downloads"
-                convert("csv", pathResources, pathOutput)
-                convert("xml", pathResources, pathOutput)
-            */
+
+        val debug = false
+        if (debug) {
+            val pathResources = "/Users/sj/AndroidApps/suby/widgets/src/main/res"
+            val pathOutput = "/Users/sj/Downloads"
+            convert("csv", pathResources, pathOutput)
+            convert("xml", pathResources, pathOutput)
+        } else {
+            val convertTo = args[0]
+            val pathResources = args[1]
+            val pathOutput = args[2]
+            convert(convertTo, pathResources, pathOutput)
+        }
     } catch (e: Exception) {
         e.printStackTrace()
         println("\n\nError:")

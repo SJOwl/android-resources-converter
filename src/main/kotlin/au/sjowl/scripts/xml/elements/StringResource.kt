@@ -23,10 +23,19 @@ class StringResource(
         }
 
         sb.append("\t<!-- Translatable -->\n")
-        sb.append(strings.values
+
+        val translatables = strings.values
             .filter { it.translatable }
             .sortedBy { it.name }
-            .sortedByDescending { it.value.contains("CDATA", ignoreCase = false) }
+
+        sb.append(translatables
+            .filter { it.value.contains("CDATA", ignoreCase = false) }
+            .joinToString("\n") { "\t$it" })
+
+        sb.append("\n\n")
+
+        sb.append(translatables
+            .filter { !it.value.contains("CDATA", ignoreCase = false) }
             .joinToString("\n") { "\t$it" })
 
         if (plurals.isNotEmpty()) {
