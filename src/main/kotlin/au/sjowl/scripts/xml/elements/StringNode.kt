@@ -1,6 +1,6 @@
 package au.sjowl.scripts.xml.elements
 
-class StringNode(
+data class StringNode(
     var name: String,
     var value: String,
     val translatable: Boolean

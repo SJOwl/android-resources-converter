@@ -1,6 +1,6 @@
 package au.sjowl.scripts.xml.elements
 
-class PluralsItem(
+data class PluralsItem(
     val quantity: String,
     val value: String
 ) {

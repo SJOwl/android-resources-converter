@@ -1,6 +1,6 @@
 package au.sjowl.scripts.xml.elements
 
-class StringArrayItem(
+data class StringArrayItem(
     val value: String
 ) {
     override fun toString(): String {

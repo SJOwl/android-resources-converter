@@ -1,63 +1,57 @@
 plugins {
-    id 'java'
-    id 'org.jetbrains.kotlin.jvm' version '1.3.10'
+    id "java"
+    id "org.jetbrains.kotlin.jvm" version "1.3.71"
 }
 
-group 'WordExtractor'
-version '1.0-SNAPSHOT'
+group "WordExtractor"
+version "1.0-SNAPSHOT"
 
 sourceCompatibility = 1.8
 
 repositories {
     google()
     mavenCentral()
+    maven { url "https://jitpack.io" }
 }
 
+
 ext {
-    v_kotlin = '1.3.10'
-    v_ktlint = '1.20.1'
-    v_lightsaber = '0.9.0-beta'
-    v_coroutines = '1.0.1'
+    v_kotlin = "1.3.71"
+    v_ktlint = "1.20.1"
+    v_lightsaber = "0.9.0-beta"
+    v_coroutines = "1.0.1"
 
-    v_support = '1.0.2'
-    v_navigaion = '1.0.0-alpha07'
-    v_constraint_layout = '1.1.3'
-    v_ktx = '1.0.1'
-    v_thirtyinch = '0.9.0'
-    v_retrofit = '2.4.0'
-    v_okhttp = '3.11.0'
-    v_glide = '4.8.0'
-    v_lifecycle = '2.0.0'
-    v_room = '2.1.0-alpha02'
+    v_support = "1.0.2"
+    v_navigaion = "1.0.0-alpha07"
+    v_constraint_layout = "1.1.3"
+    v_ktx = "1.0.1"
+    v_thirtyinch = "0.9.0"
+    v_retrofit = "2.4.0"
+    v_okhttp = "3.11.0"
+    v_glide = "4.8.0"
+    v_lifecycle = "2.0.0"
+    v_room = "2.1.0-alpha02"
 
-    v_test_junit = '4.12'
-    v_test_runner = '1.1.0'
-    v_test_espresso = '3.1.0'
-    v_test_room = '2.0.0'
-    v_test_json = '20140107'
-    v_test_kluent = '1.36'
-    v_test_mockito = '1.6.0'
-    v_test_robolectric = '3.8'
+    v_test_junit = "4.12"
+    v_test_runner = "1.1.0"
+    v_test_espresso = "3.1.0"
+    v_test_room = "2.0.0"
+    v_test_json = "20140107"
+    v_test_kluent = "1.36"
+    v_test_mockito = "1.6.0"
+    v_test_robolectric = "3.8"
 }
 
 dependencies {
-    testCompile group: 'junit', name: 'junit', version: '4.12'
+    testCompile group: "junit", name: "junit", version: "4.12"
 
     compile "org.jetbrains.kotlin:kotlin-stdlib:$v_kotlin"
-//    compile "androidx.appcompat:appcompat:$v_support"
-//    compile "android.arch.navigation:navigation-fragment:$v_navigaion"
-//    compile "android.arch.navigation:navigation-ui:$v_navigaion"
-//    compile "android.arch.navigation:navigation-fragment-ktx:$v_navigaion"
-//    compile "android.arch.navigation:navigation-ui-ktx:$v_navigaion"
-//    compile "androidx.core:core-ktx:$v_ktx"
-//    compile "androidx.constraintlayout:constraintlayout:$v_constraint_layout"
 
     compile "net.grandcentrix.thirtyinch:thirtyinch:$v_thirtyinch"
     compile "net.grandcentrix.thirtyinch:thirtyinch-rx2:$v_thirtyinch"
     compile "net.grandcentrix.thirtyinch:thirtyinch-logginginterceptor:$v_thirtyinch"
     compile "net.grandcentrix.thirtyinch:thirtyinch-kotlin:$v_thirtyinch"
 
-//    compile "com.android.support:appcompat-v7:$v_support"
     compile "org.jetbrains.kotlinx:kotlinx-coroutines-core:$v_coroutines"
     compile "org.jetbrains.kotlinx:kotlinx-coroutines-javafx:$v_coroutines"
 
@@ -65,20 +59,14 @@ dependencies {
     compile "com.squareup.retrofit2:adapter-rxjava2:$v_retrofit"
     compile "com.squareup.retrofit2:converter-gson:$v_retrofit"
     compile "com.squareup.retrofit2:converter-moshi:$v_retrofit"
-    compile 'com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2'
+    compile "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2"
 
     compile "com.squareup.okhttp3:okhttp:$v_okhttp"
     compile "com.squareup.okhttp3:logging-interceptor:$v_okhttp"
-    compile "com.github.bumptech.glide:glide:$v_glide"
-    kapt "com.github.bumptech.glide:compiler:$v_glide"
-    compile "io.michaelrocks:lightsaber-core-kotlin:$v_lightsaber"
-    compile "androidx.room:room-runtime:$v_room"
-    kapt "androidx.room:room-compiler:$v_room" // use kapt for Kotlin
-    compile "androidx.room:room-rxjava2:$v_room"
-    compile 'io.reactivex.rxjava2:rxjava:2.2.2'
-    compile 'io.reactivex.rxjava2:rxandroid:2.1.0'
-    compile 'org.jsoup:jsoup:1.11.3'
-    compile 'com.google.code.gson:gson:2.8.5'
+    compile "io.reactivex.rxjava2:rxjava:2.2.2"
+    compile "io.reactivex.rxjava2:rxandroid:2.1.0"
+    compile "org.jsoup:jsoup:1.11.3"
+    compile "com.google.code.gson:gson:2.8.5"
     compile "org.apache.commons:commons-csv:1.5"
     compile "org.jetbrains.kotlin:kotlin-script-runtime:1.3.10"
 }

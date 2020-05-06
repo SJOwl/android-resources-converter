@@ -1,18 +1,21 @@
 package au.sjowl.scripts.xml
 
 import au.sjowl.scripts.xml.elements.OUTPUT_NAME
+import kotlinx.coroutines.runBlocking
 
-fun main(args: Array<String>) {
+
+fun main(args: Array<String>) = runBlocking {
+
     try {
         println("""
-Supported arguments are: xml and csv
-first argument - resources foulder, second - output folder
-Example:
-cr csv /Users/sj/AndroidApps/suby/widgets/src/main/res /Users/sj/Downloads
-cr xml /Users/sj/AndroidApps/suby/widgets/src/main/res /Users/sj/Downloads
+        Supported arguments are: xml and csv
+        first argument - resources foulder, second - output folder
+        Example:
+        cr csv /Users/sj/AndroidApps/suby/widgets/src/main/res /Users/sj/Downloads
+        cr xml /Users/sj/AndroidApps/suby/widgets/src/main/res /Users/sj/Downloads
         """.trimIndent())
 
-        val debug = false
+        val debug = true
         if (debug) {
             val pathResources = "/Users/sj/AndroidApps/suby/widgets/src/main/res"
             val pathOutput = "/Users/sj/Downloads"
@@ -31,7 +34,7 @@ cr xml /Users/sj/AndroidApps/suby/widgets/src/main/res /Users/sj/Downloads
     }
 }
 
-private fun convert(convertTo: String, pathResources: String, pathOutput: String) {
+private suspend fun convert(convertTo: String, pathResources: String, pathOutput: String) {
     val converter = AndroidStringsConverter(
         pathResources = pathResources,
         pathOutput = pathOutput

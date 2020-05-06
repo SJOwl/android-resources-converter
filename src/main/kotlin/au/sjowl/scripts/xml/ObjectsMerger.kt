@@ -26,7 +26,7 @@ class ObjectsMerger {
             .sortedBy { stringNode ->
                 var res = true
                 resourceNames.forEach { name ->
-                    res = res && resources[name]!!.strings[stringNode.name]?.value != null
+                    res = res && !resources[name]!!.strings[stringNode.name]?.value.isNullOrEmpty()
                 }
                 res
             }

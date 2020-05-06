@@ -199,7 +199,7 @@ class XmlParser {
 
             StringNode(
                 name = attributes["name"].orEmpty(),
-                value = text,
+                value = text.capitalize(),
                 translatable = (attributes["translatable"] ?: "true").toBoolean()
             )
         }
@@ -225,7 +225,7 @@ class XmlParser {
                 name = attributes["name"].orEmpty(),
                 items = parse(node) { itemNode, _ ->
                     StringArrayItem(
-                        value = itemNode.textContent.orEmpty()
+                        value = itemNode.textContent.orEmpty().capitalize()
                     )
                 }.toMutableList()
             )

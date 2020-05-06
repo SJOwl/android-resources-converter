@@ -12,7 +12,41 @@ class AndroidStringsConverter(
     private val stringsFileName = "strings.xml"
     private val htmlFileName = "$pathOutput/strings.html"
 
-    fun convertToCsv() {
+    /**
+    val translateAPI = TranslateAPI()
+    val t = measureTimeMillis {
+    val translatedText = translateAPI.translate("кривой", Language.AUTO_DETECT, Language.ENGLISH)
+    println("onSuccess: $translatedText")
+    }
+    println("translation: $t ms")
+     */
+
+    suspend fun convertToCsv() {
+        val resourcesMap: MutableMap<String, StringResource> = parseToResourcesMap()
+        translate(resourcesMap)
+
+        val csvMerged = ObjectsMerger().merge(resourcesMap, pathCsv)
+        File(pathCsv).writeText(csvMerged)
+    }
+
+    private suspend fun translate(resources: MutableMap<String, StringResource>) {
+
+        val prefix = "values-"
+
+        val names = resources.keys
+
+        val translator = ResourcesTranslator(resources["values"]!!)
+
+        names.forEach { name: String ->
+            val code = name.replace(prefix, "")
+            if (code != "values") {
+                resources[name] = translator.translate(code)
+            }
+        }
+    }
+
+    private fun parseToResourcesMap(): MutableMap<String, StringResource> {
+
         val parser = XmlParser()
         val resourcesMap = mutableMapOf<String, StringResource>()
 
@@ -21,33 +55,31 @@ class AndroidStringsConverter(
         htmlFile.createNewFile()
 
         File(pathResources).children()
-            .filter { file: File -> file.name == stringsFileName }
-            .map {
-                val stringResource = parser.parseToCsv(it)
-                htmlFile.appendText(stringResource.getCDATA())
-                stringResource
-            }.forEach { stringResource: StringResource ->
-                resourcesMap[stringResource.name] = stringResource
-            }
+                .filter { file: File -> file.name == stringsFileName }
+                .map {
+                    val stringResource = parser.parseToCsv(it)
+                    htmlFile.appendText(stringResource.getCDATA())
+                    stringResource
+                }.forEach { stringResource: StringResource ->
+                    resourcesMap[stringResource.name] = stringResource
+                }
 
-        val merger = ObjectsMerger()
-        val csvMerged = merger.merge(resourcesMap, pathCsv)
-        File(pathCsv).writeText(csvMerged)
+        return resourcesMap
     }
 
     fun convertToXml() {
 
         XmlParser().parseCsvToXml(File(pathCsv))
-            .forEach { stringResource: StringResource ->
-                val folder = File(pathResources, stringResource.name).apply {
-                    mkdirs()
+                .forEach { stringResource: StringResource ->
+                    val folder = File(pathResources, stringResource.name).apply {
+                        mkdirs()
+                    }
+                    File(folder, stringsFileName).writeText(stringResource.toString())
                 }
-                File(folder, stringsFileName).writeText(stringResource.toString())
-            }
     }
 
     private fun File.children(): Sequence<File> {
         return walkTopDown()
-            .filter { this.path != it.path }
+                .filter { this.path != it.path }
     }
 }

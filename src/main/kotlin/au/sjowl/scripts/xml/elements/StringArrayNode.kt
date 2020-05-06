@@ -1,6 +1,6 @@
 package au.sjowl.scripts.xml.elements
 
-class StringArrayNode(
+data class StringArrayNode(
     val name: String,
     val items: MutableList<StringArrayItem>
 ) {

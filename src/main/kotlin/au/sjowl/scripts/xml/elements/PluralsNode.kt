@@ -1,6 +1,6 @@
 package au.sjowl.scripts.xml.elements
 
-class PluralsNode(
+data class PluralsNode(
     val name: String,
     val items: MutableList<PluralsItem>
 ) {

@@ -1,14 +1,14 @@
 package au.sjowl.scripts.xml.elements
 
 class StringResource(
-    val name: String,/* can be values-ru-rRU*/
+    val name: String,/* can be values-ru, values-es, etc.*/
     val strings: MutableMap<String, StringNode> = mutableMapOf(),
     val plurals: MutableMap<String, PluralsNode> = mutableMapOf(),
     val arrays: MutableMap<String, StringArrayNode> = mutableMapOf()
 ) {
     override fun toString(): String {
         val sb = StringBuilder()
-        sb.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<resources>\n")
+        sb.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<resources xmlns:tools=\"http://schemas.android.com/tools\" tools:ignore=\"TypographyEllipsis, UnusedQuantity\">\n")
 
         val translatable = strings.values
             .filter { !it.translatable }
@@ -65,7 +65,7 @@ class StringResource(
             .sortedBy { it.name }
 
         sb.append(name)
-        sb.append("\n")
+        sb.append("\n<br>")
 
         cdatas.forEach {
             sb.append(it.value
@@ -75,7 +75,7 @@ class StringResource(
             sb.append("\n")
         }
 
-        sb.append("\n")
+        sb.append("\n<br><br>")
         return sb.toString()
     }
 }
