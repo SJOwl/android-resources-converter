@@ -3,13 +3,12 @@ package au.sjowl.scripts.xml
 import au.sjowl.scripts.xml.elements.OUTPUT_NAME
 import kotlinx.coroutines.runBlocking
 
-
 fun main(args: Array<String>) = runBlocking {
 
     try {
         println("""
-        Supported arguments are: xml and csv
-        first argument - resources foulder, second - output folder
+        Supported arguments are: xml and csv, translate
+        first argument - resources folder, second - output folder
         Example:
         cr csv /Users/sj/AndroidApps/suby/widgets/src/main/res /Users/sj/Downloads
         cr xml /Users/sj/AndroidApps/suby/widgets/src/main/res /Users/sj/Downloads
@@ -22,16 +21,23 @@ fun main(args: Array<String>) = runBlocking {
             convert("csv", pathResources, pathOutput)
             convert("xml", pathResources, pathOutput)
         } else {
-            val convertTo = args[0]
+            val command = args[0]
             val pathResources = args[1]
             val pathOutput = args[2]
-            convert(convertTo, pathResources, pathOutput)
+            when (command) {
+                "csv", "xml" -> convert(command, pathResources, pathOutput)
+                "translate" -> translateReleaseNotes()
+            }
+
         }
     } catch (e: Exception) {
         e.printStackTrace()
         println("\n\nError:")
         println(e)
     }
+}
+
+private fun translateReleaseNotes() {
 }
 
 private suspend fun convert(convertTo: String, pathResources: String, pathOutput: String) {
