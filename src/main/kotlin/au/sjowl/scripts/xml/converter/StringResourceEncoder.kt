@@ -1,4 +1,4 @@
-package au.sjowl.scripts.xml
+package au.sjowl.scripts.xml.converter
 
 import au.sjowl.scripts.xml.elements.PluralsNode
 import au.sjowl.scripts.xml.elements.StringArrayNode
@@ -108,9 +108,9 @@ class StringResourceEncoder(
         return map
     }
 
-    private val DELIMITER_LINES_ENCODE = "^^^\n"
-    private val DELIMITER_LINES_DECODE = Regex("(\\^\\^\\^\n|\n,)")
+    private val DELIMITER_LINES_ENCODE = "\n"
+    private val DELIMITER_LINES_DECODE = "\n"
 
-    private val DELIMITER_ENCODE = " @@\n\n "
+    private val DELIMITER_ENCODE = " @@ "
     private val DELIMITER_DECODE = DELIMITER_ENCODE.trim()
 }

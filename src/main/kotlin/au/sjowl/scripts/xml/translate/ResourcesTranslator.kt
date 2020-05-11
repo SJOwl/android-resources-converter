@@ -1,9 +1,9 @@
-package au.sjowl.scripts.xml
+package au.sjowl.scripts.xml.translate
 
+import au.sjowl.scripts.xml.converter.StringResourceEncoder
 import au.sjowl.scripts.xml.elements.PluralsItem
 import au.sjowl.scripts.xml.elements.StringArrayItem
 import au.sjowl.scripts.xml.elements.StringResource
-import au.sjowl.scripts.xml.translate.TranslateAPI
 import kotlinx.coroutines.delay
 import kotlin.random.Random
 

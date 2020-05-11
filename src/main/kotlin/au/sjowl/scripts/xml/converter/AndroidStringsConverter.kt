@@ -1,7 +1,8 @@
-package au.sjowl.scripts.xml
+package au.sjowl.scripts.xml.converter
 
 import au.sjowl.scripts.xml.elements.OUTPUT_NAME
 import au.sjowl.scripts.xml.elements.StringResource
+import au.sjowl.scripts.xml.translate.ResourcesTranslator
 import java.io.File
 
 class AndroidStringsConverter(

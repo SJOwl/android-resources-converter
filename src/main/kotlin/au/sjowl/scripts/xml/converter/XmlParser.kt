@@ -1,4 +1,4 @@
-package au.sjowl.scripts.xml
+package au.sjowl.scripts.xml.converter
 
 import au.sjowl.scripts.xml.elements.DELIMETER
 import au.sjowl.scripts.xml.elements.MAIN_VALUES

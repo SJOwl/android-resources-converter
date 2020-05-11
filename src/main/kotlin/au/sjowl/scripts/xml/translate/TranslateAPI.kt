@@ -2,7 +2,6 @@ package au.sjowl.scripts.xml.translate
 
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.oracle.javafx.jmx.json.JSONException
 import kotlinx.coroutines.suspendCancellableCoroutine
 import java.io.IOException
 import java.net.HttpURLConnection
@@ -27,7 +26,7 @@ class TranslateAPI {
                 .inputStream
                 .bufferedReader()
                 .readLines()
-                .joinToString()
+                .joinToString("")
     }
 
     suspend fun translate(text: String, langFrom: String, langTo: String): String = suspendCancellableCoroutine { continuation ->
@@ -46,14 +45,14 @@ class TranslateAPI {
                 val temp = ((gson.fromJson<List<Any>>(resp, object : TypeToken<List<Any>>() {}.type))[0] as List<Any?>)
                         .map { (it as? List<Any?>)?.get(0) }
                         .filterNotNull()
-                        .joinToString()
+                        .joinToString("")
 
                 if (temp.length > 2) {
                     continuation.resume(temp)
                 } else {
                     continuation.resumeWith(Result.failure(Exception("Invalid Input String")))
                 }
-            } catch (e: JSONException) {
+            } catch (e: Exception) {
                 e.printStackTrace()
                 continuation.resume("")
             }
