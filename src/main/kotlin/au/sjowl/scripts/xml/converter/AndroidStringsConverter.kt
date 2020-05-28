@@ -6,11 +6,12 @@ import au.sjowl.scripts.xml.translate.ResourcesTranslator
 import java.io.File
 
 class AndroidStringsConverter(
-    private val pathResources: String,
-    pathOutput: String
+        private val pathResources: String,
+        pathOutput: String,
+        private val stringsFileName: String,
+        private val languages: List<String>
 ) {
     private val pathCsv = "$pathOutput/$OUTPUT_NAME"
-    private val stringsFileName = "strings.xml"
     private val htmlFileName = "$pathOutput/strings.html"
 
     /**
@@ -55,15 +56,33 @@ class AndroidStringsConverter(
         htmlFile.delete()
         htmlFile.createNewFile()
 
-        File(pathResources).children()
-                .filter { file: File -> file.name == stringsFileName }
-                .map {
-                    val stringResource = parser.parseToCsv(it)
+        languages
+                .forEach { lan ->
+                    val it = "$pathResources/values-$lan/$stringsFileName"
+                    val f = File(it)
+                    val stringResource = if (!f.exists()) {
+                        f.parentFile.mkdirs()
+                        StringResource(name = "values-$lan")
+                    } else {
+                        parser.parseToCsv(f)
+                    }
                     htmlFile.appendText(stringResource.getCDATA())
-                    stringResource
-                }.forEach { stringResource: StringResource ->
                     resourcesMap[stringResource.name] = stringResource
                 }
+
+        val stringResource = parser.parseToCsv(File("$pathResources/values/$stringsFileName"))
+        htmlFile.appendText(stringResource.getCDATA())
+        resourcesMap[stringResource.name] = stringResource
+
+//        File(pathResources).children()
+//                .filter { file: File -> file.name == stringsFileName }
+//                .map {
+//                    val stringResource = parser.parseToCsv(it)
+//                    htmlFile.appendText(stringResource.getCDATA())
+//                    stringResource
+//                }.forEach { stringResource: StringResource ->
+//                    resourcesMap[stringResource.name] = stringResource
+//                }
 
         return resourcesMap
     }

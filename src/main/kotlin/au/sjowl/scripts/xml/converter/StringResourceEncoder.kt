@@ -39,6 +39,13 @@ class StringResourceEncoder(
             .replace(Regex(">"), "> ")
             .replace(Regex("> *<"), "><")
             .replace(Regex(" *<"), "<")
+            .replace("% d", "%d")
+            .replace("٪ d", "%d")
+            .replace("% s", "%s")
+            .replace("！", "!")
+            .replace("٪ ", "%")
+            .replace("٪", "%")
+            .replace("CDATA [", "CDATA[")
             .replace(" {2,}".toRegex(), " ")
             .capitalize()
 
