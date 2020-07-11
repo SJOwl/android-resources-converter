@@ -4,13 +4,14 @@ import au.sjowl.scripts.xml.converter.StringResourceEncoder
 import au.sjowl.scripts.xml.elements.PluralsItem
 import au.sjowl.scripts.xml.elements.StringArrayItem
 import au.sjowl.scripts.xml.elements.StringResource
+import com.google.gson.Gson
 import kotlinx.coroutines.delay
 import kotlin.random.Random
 
 class ResourcesTranslator(
     englishResource: StringResource
 ) {
-    private val translator = TranslateAPI()
+    private val translator = GoogleTranslateUnofficialAPI(Gson())
 
     private val encoder = StringResourceEncoder(englishResource)
     private val encodedStrings = encoder.encodeStrings()
@@ -51,7 +52,8 @@ class ResourcesTranslator(
         val delay = Random.nextLong(2000, 10000)
         println("delay for $delay ms")
         delay(delay)
-        val translated = translator.translate(text, "en", languageCode)
-        return translated
+        translator.langFrom = "en"
+        translator.langTo = languageCode
+        return translator.translate(text)!!
     }
 }

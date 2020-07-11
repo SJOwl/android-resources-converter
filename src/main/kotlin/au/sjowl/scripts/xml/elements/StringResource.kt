@@ -8,7 +8,7 @@ class StringResource(
 ) {
     override fun toString(): String {
         val sb = StringBuilder()
-        sb.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<resources xmlns:tools=\"http://schemas.android.com/tools\" tools:ignore=\"TypographyEllipsis, UnusedQuantity\">\n")
+        sb.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<resources xmlns:tools=\"http://schemas.android.com/tools\" tools:ignore=\"TypographyEllipsis, UnusedQuantity, MissingTranslation\">\n")
 
         val translatable = strings.values
             .filter { !it.translatable }
